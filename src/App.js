@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import './App.css';
+import Contact from './Contact';
 
 class App extends Component {
   render() {
@@ -9,6 +10,7 @@ class App extends Component {
         <Header/>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
+          <Contact />
         </p>
       </div>
     );
