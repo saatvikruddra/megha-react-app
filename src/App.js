@@ -8,10 +8,10 @@ class App extends Component {
     return (
       <div className="App">
         <Header/>
-        <p className="App-intro">
+        <div className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
-          <Contact />
-        </p>
+          <Contact myNumber="9915296866" myEmail="cto.varun@gmail.com"/>
+        </div>
       </div>
     );
   }
