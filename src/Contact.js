@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import './Contact.css';
+import Button from './common/Button';
+import Header from './Header';
 
 class Contact extends Component{
     constructor(props){
@@ -9,6 +12,7 @@ class Contact extends Component{
             myEmail: this.props.myEmail
         };
     }
+  
     componentWillMount() {
         console.log("Component willmount of contact component ");
     }
@@ -27,7 +31,9 @@ class Contact extends Component{
         return(
             <div>
             <p>Contact NUGEN on {this.state.myNumber} and email is {this.state.myEmail}</p>
-            <button onClick={this.changeValue}>Change Value</button>
+            <Button clickHandler={this.changeValue}>
+                <Header/>
+            </Button>
             </div>
         );
     }
