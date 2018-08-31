@@ -6,7 +6,7 @@ import Header from './Header';
 class Contact extends Component{
     constructor(props){
         super(props);
-        console.log("Constructor of contact component ");
+        // console.log("Constructor of contact component ");
         this.state = {
             myNumber: this.props.myNumber,
             myEmail: this.props.myEmail
@@ -14,10 +14,10 @@ class Contact extends Component{
     }
   
     componentWillMount() {
-        console.log("Component willmount of contact component ");
+        // console.log("Component willmount of contact component ");
     }
     componentDidMount() {
-        console.log("Component did mount of contact component fired");
+        // console.log("Component did mount of contact component fired");
     }
     changeValue = () => {
         // this.props.myNumber = "8699643192";
@@ -27,7 +27,7 @@ class Contact extends Component{
         });
     }
     render(){
-        console.log("render function fired");
+        // console.log("render function fired");
         return(
             <div>
             <p>Contact NUGEN on {this.state.myNumber} and email is {this.state.myEmail}</p>
