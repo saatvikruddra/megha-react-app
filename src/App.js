@@ -8,7 +8,21 @@ class App extends Component {
     super();
     this.state = {
       username: '',
-      password:''
+      password:'',
+      persons : [
+        {
+          name: 'Varun',
+          age: 28
+        },
+        {
+          name: 'harshit',
+          age: 20
+        },
+        {
+          name: 'Abhishek',
+          age: 20
+        }
+      ]
     };
   }
 
@@ -16,6 +30,10 @@ class App extends Component {
     this.setState({
       username: e.target.value
     });
+  }
+
+  showClick = (ind)=>{
+    console.log(ind);
   }
   render() {
     return (
@@ -28,6 +46,13 @@ class App extends Component {
         <input type="text" value={this.state.username} onChange={this.changeUsername}/> 
         <div>
           {this.state.username}
+          {
+            this.state.persons.map((v,i)=>{
+              return (
+                <h1 key={i} onClick={()=> this.showClick(i)}>{v.name} with {v.age}</h1>
+              );
+            })
+          }
         </div>
       </div>
     );
