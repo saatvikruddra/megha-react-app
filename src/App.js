@@ -3,6 +3,7 @@ import Header from './Header';
 import './App.css';
 import Contact from './Contact';
 import Person from './Person';
+import Post from './Post';
 
 class App extends Component {
   constructor(){
@@ -55,6 +56,7 @@ class App extends Component {
             })
           }
           <Person/>
+          <Post/>
         </div>
       </div>
     );
