@@ -7,7 +7,8 @@ class Post extends Component {
         this.state  = {
             posts: [],
             title:'',
-            author:''
+            author:'',
+            id: 0
         };
         this.fetchPosts();
     }
@@ -19,6 +20,7 @@ class Post extends Component {
         })
         .then((res)=>{
             console.log(res);
+        
             this.setState({
                 posts: res
             });
@@ -106,19 +108,83 @@ class Post extends Component {
             author: ''
         });
     }
+    editPost = (id,title,author) => {
+        this.setState({
+            id: id,
+            title: title,
+            author: author
+        });
+    }
+
+    showButton = () => {
+        if(this.state.id !== 0){
+            return (
+                <button onClick={this.updatePost}> Update Post</button>
+            );
+        }else{
+            return (
+                <button onClick={this.addPost}> Add Post</button>
+            );
+        }
+    }
+
+    updatePost = () =>{
+        let post = {
+            title: this.state.title,
+            author: this.state.author
+        };
+        fetch("http://localhost:3000/posts/"+this.state.id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(res=>{
+            if(res.id !== undefined){
+                // this.fetchPosts();
+                let posts = this.state.posts.slice();
+                let ind = posts.findIndex(
+                    (v) => {
+                        return v.id === this.state.id
+                    }
+                );
+                posts[ind].title = res.title;
+                posts[ind].author = res.author;
+                this.setState({
+                    posts: posts
+                });
+                this.clearInputs();
+            }
+        })
+        .catch(err=> {
+            console.log("Error while inserting post "+ err);
+        })
+    }
+
+    showHtml = (txt) => {
+        return (
+            <span dangerouslySetInnerHTML={{__html: `<b>${txt}</b>`}}></span>
+        );
+    }
+
     render(){
         return (
             <div>
                 <input type="text" value={this.state.title} placeholder="Enter Title" onChange={(event)=>{this.changeTitle(event)}}/> <br/>
                 <input type="text" value={this.state.author} placeholder="Enter Author" onChange={(event)=>{this.changeAuthor(event)}}/> <br/>
-                <button onClick={this.addPost}> Add Post</button>
+                {this.showButton()}
                 <h1>Posts</h1>
                 <ul>
               
                      { this.state.posts.map((p,i)=>{
                         return (
                             <li key={i}>
-                                {p.title} as Author {p.author}  
+                                {p.id} {this.showHtml(p.title)} as Author {p.author}  
+                                 <span onClick={() => this.editPost(p.id,p.title,p.author)}>Edit</span>
                                 <span onClick={()=> this.deletePost(p.id)}>Delete</span>
                             </li>
                             )
