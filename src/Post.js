@@ -105,7 +105,8 @@ class Post extends Component {
     clearInputs = ()=>{
         this.setState({
             title:'',
-            author: ''
+            author: '',
+            id:0
         });
     }
     editPost = (id,title,author) => {
