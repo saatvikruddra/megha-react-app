@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+    Link
+} from 'react-router-dom';
 
 class Post extends Component {
     constructor(){
@@ -192,6 +195,7 @@ class Post extends Component {
                         })
                     }
                 </ul>
+              <Link to="/">Go to mainpage.</Link>
             </div>
         );
     }

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {
+    Link
+} from 'react-router-dom';
 
 class Person extends Component {
     constructor(){
@@ -69,6 +72,7 @@ class Person extends Component {
                         })
                     }
                 </ul>
+              <Link to="/">Go to mainpage.</Link>
             </div>
         );
     }

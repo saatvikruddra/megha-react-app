@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import './App.css';
 import Contact from './Contact';
-import Person from './Person';
-import Post from './Post';
+import {Link} from 'react-router-dom';
 
 class App extends Component {
   constructor(){
@@ -55,8 +54,10 @@ class App extends Component {
               );
             })
           }
-          <Person/>
-          <Post/>
+          <div>
+          <Link to="/post">Post</Link>
+          </div>  
+          <Link to="/person">Person</Link>
         </div>
       </div>
     );
