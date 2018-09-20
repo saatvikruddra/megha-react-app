@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
     Link
 } from 'react-router-dom';
+import ListItem from "./common/ListItem";
 
 class Post extends Component {
     constructor(){
@@ -169,11 +170,7 @@ class Post extends Component {
         })
     }
 
-    showHtml = (txt) => {
-        return (
-            <span dangerouslySetInnerHTML={{__html: `<b>${txt}</b>`}}></span>
-        );
-    }
+
 
     render(){
         return (
@@ -183,17 +180,11 @@ class Post extends Component {
                 {this.showButton()}
                 <h1>Posts</h1>
                 <ul>
-              
-                     { this.state.posts.map((p,i)=>{
+                    {this.state.posts.map((p,i)=>{
                         return (
-                            <li key={i}>
-                                {p.id} {this.showHtml(p.title)} as Author {p.author}  
-                                 <span onClick={() => this.editPost(p.id,p.title,p.author)}>Edit</span>
-                                <span onClick={()=> this.deletePost(p.id)}>Delete</span>
-                            </li>
-                            )
-                        })
-                    }
+                            <ListItem post={p} index={i}/>
+                        );
+                    })}
                 </ul>
               <Link to="/">Go to mainpage.</Link>
             </div>
