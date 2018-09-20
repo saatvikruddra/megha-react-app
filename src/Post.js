@@ -23,8 +23,6 @@ class Post extends Component {
             return res.json();
         })
         .then((res)=>{
-            console.log(res);
-        
             this.setState({
                 posts: res
             });
@@ -60,7 +58,7 @@ class Post extends Component {
             }
         })
         .catch(err => {
-            console.log("Error while deleting post "+id + " " + err);
+            console.log("Error while deleting post "+ id + " " + err);
         });
 
     }
@@ -182,7 +180,13 @@ class Post extends Component {
                 <ul>
                     {this.state.posts.map((p,i)=>{
                         return (
-                            <ListItem post={p} index={i}/>
+                            <ListItem 
+                                key={i} 
+                                deletePost={() =>this.deletePost(p.id)} 
+                                editPost={() => this.editPost(p.id,p.title,p.author)}
+                                post={p} 
+                                index={i}
+                            />
                         );
                     })}
                 </ul>

@@ -11,14 +11,19 @@ const showHtml = (txt) => {
 
 
 const ListItem = (props) => {
-    const { post, i } = props;
+    const {
+        post,
+        i,
+        deletePost,
+        editPost
+    } = props;
             return (
                 <li key={i}>
                     {post.id} {showHtml(post.title)} as Author {post.author}  
-                        <span onClick={() => this.editPost(post.id,post.title,post.author)}>Edit</span>
-                    <span onClick={()=> this.deletePost(post.id)}>Delete</span>
+                        <span onClick={editPost}>Edit</span>
+                    <span onClick={deletePost}>Delete</span>
                 </li>
                 );
-};
+};  
 
 export default ListItem;
