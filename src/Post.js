@@ -3,10 +3,11 @@ import {
     Link
 } from 'react-router-dom';
 import ListItem from "./common/ListItem";
+import cookie from 'react-cookies';
 
 class Post extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         
         this.state  = {
             posts: [],
@@ -15,6 +16,11 @@ class Post extends Component {
             id: 0
         };
         this.fetchPosts();
+        if(cookie.load('userinfo') === undefined)
+        {
+            this.props.history.push('/person');
+            // window.location.href = '/';
+        }
     }
 
     fetchPosts = ()=>{
