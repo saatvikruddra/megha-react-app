@@ -4,8 +4,16 @@ import {
 } from 'react-router-dom';
 import ListItem from "./common/ListItem";
 import cookie from 'react-cookies';
+import {
+    ToastContainer,
+    toast
+} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class Post extends Component {
+    
+    notify = (msg) => toast(msg);
+    
     constructor(props){
         super(props);
         
@@ -32,6 +40,7 @@ class Post extends Component {
             this.setState({
                 posts: res
             });
+            this.notify("Posts Fetched successfully");
         })
         .catch(err=>{
             console.log("Error while fetching posts " + err);
@@ -61,6 +70,7 @@ class Post extends Component {
                 this.setState({
                     posts: posts
                 });
+                this.notify(`Post with id ${id} deleted`);
             }
         })
         .catch(err => {
@@ -179,6 +189,7 @@ class Post extends Component {
     render(){
         return (
             <div>
+                <ToastContainer />
                 <input type="text" value={this.state.title} placeholder="Enter Title" onChange={(event)=>{this.changeTitle(event)}}/> <br/>
                 <input type="text" value={this.state.author} placeholder="Enter Author" onChange={(event)=>{this.changeAuthor(event)}}/> <br/>
                 {this.showButton()}
