@@ -21,7 +21,8 @@ class Post extends Component {
             posts: [],
             title:'',
             author:'',
-            id: 0
+            id: 0,
+            baseUrl: 'http://localhost:3000'
         };
         this.fetchPosts();
         if(cookie.load('userinfo') === undefined)
@@ -32,7 +33,7 @@ class Post extends Component {
     }
 
     fetchPosts = ()=>{
-        fetch("http://localhost:3000/posts")
+        fetch(`${this.state.baseUrl}/posts`)
         .then((res)=>{
             return res.json();
         })
@@ -50,7 +51,7 @@ class Post extends Component {
   
 
     deletePost = (id) =>{
-        fetch("http://localhost:3000/posts/"+ id,{
+        fetch(`${this.state.baseUrl}/posts/${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -95,7 +96,7 @@ class Post extends Component {
             title: this.state.title,
             author: this.state.author
         };
-        fetch("http://localhost:3000/posts",{
+        fetch(`${this.state.baseUrl}/posts`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -152,7 +153,7 @@ class Post extends Component {
             title: this.state.title,
             author: this.state.author
         };
-        fetch("http://localhost:3000/posts/"+this.state.id, {
+        fetch(""+this.state.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
