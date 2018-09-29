@@ -61,6 +61,9 @@ class App extends Component {
           <Link to="/post">Post</Link>
           </div>  
           <Link to="/person">Person</Link>
+          <div>
+          <Link to="/login">Login</Link>
+          </div>
         </div>
       </div>
     );

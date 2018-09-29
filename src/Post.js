@@ -24,11 +24,11 @@ class Post extends Component {
             id: 0,
             baseUrl: 'http://localhost:3000'
         };
-        this.fetchPosts();
-        if(cookie.load('userinfo') === undefined)
+        if(cookie.load('access_token') === undefined)
         {
-            this.props.history.push('/person');
-            // window.location.href = '/';
+            this.props.history.push('/login');
+        }else{
+            this.fetchPosts();
         }
     }
 
@@ -47,8 +47,6 @@ class Post extends Component {
             console.log("Error while fetching posts " + err);
         })
     }
-
-  
 
     deletePost = (id) =>{
         fetch(`${this.state.baseUrl}/posts/${id}`,{
@@ -186,7 +184,11 @@ class Post extends Component {
     }
 
 
-
+    logout = () => {
+        cookie.remove('access_token');
+                        cookie.remove('role');
+                        this.props.history.push('/');
+    }
     render(){
         return (
             <div>
@@ -209,6 +211,11 @@ class Post extends Component {
                     })}
                 </ul>
               <Link to="/">Go to mainpage.</Link>
+              <div>
+                <button
+                    onClick={this.logout}
+                >Logout</button>
+              </div>
             </div>
         );
     }
