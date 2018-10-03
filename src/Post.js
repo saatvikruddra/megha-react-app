@@ -23,19 +23,19 @@ class Post extends Component {
             title:'',
             author:'',
             id: 0,
-            loader: true
+            loader: true,
+            baseUrl: 'http://localhost:3000'
         };
-        this.fetchPosts();
-        if(cookie.load('userinfo') === undefined)
+        if(cookie.load('access_token') === undefined)
         {
-            this.props.history.push('/person');
-            // window.location.href = '/';
+            this.props.history.push('/login');
+        }else{
+            this.fetchPosts();
         }
     }
 
     fetchPosts = ()=>{
-       
-        fetch("http://localhost:3000/posts")
+        fetch(`${this.state.baseUrl}/posts`)
         .then((res)=>{
             return res.json();
         })
@@ -51,10 +51,8 @@ class Post extends Component {
         })
     }
 
-  
-
     deletePost = (id) =>{
-        fetch("http://localhost:3000/posts/"+ id,{
+        fetch(`${this.state.baseUrl}/posts/${id}`,{
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -102,7 +100,7 @@ class Post extends Component {
             title: this.state.title,
             author: this.state.author
         };
-        fetch("http://localhost:3000/posts",{
+        fetch(`${this.state.baseUrl}/posts`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -160,7 +158,7 @@ class Post extends Component {
             title: this.state.title,
             author: this.state.author
         };
-        fetch("http://localhost:3000/posts/"+this.state.id, {
+        fetch(""+this.state.id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -193,7 +191,11 @@ class Post extends Component {
     }
 
 
-
+    logout = () => {
+        cookie.remove('access_token');
+                        cookie.remove('role');
+                        this.props.history.push('/');
+    }
     render(){
         return (
             <div>
@@ -217,6 +219,11 @@ class Post extends Component {
                     })}
                 </ul>
               <Link to="/">Go to mainpage.</Link>
+              <div>
+                <button
+                    onClick={this.logout}
+                >Logout</button>
+              </div>
             </div>
         );
     }
