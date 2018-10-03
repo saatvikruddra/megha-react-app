@@ -9,6 +9,7 @@ import {
     toast
 } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from './common/Loader';
 
 class Post extends Component {
     
@@ -21,7 +22,8 @@ class Post extends Component {
             posts: [],
             title:'',
             author:'',
-            id: 0
+            id: 0,
+            loader: true
         };
         this.fetchPosts();
         if(cookie.load('userinfo') === undefined)
@@ -32,13 +34,15 @@ class Post extends Component {
     }
 
     fetchPosts = ()=>{
+       
         fetch("http://localhost:3000/posts")
         .then((res)=>{
             return res.json();
         })
         .then((res)=>{
             this.setState({
-                posts: res
+                posts: res,
+                loader: false
             });
             this.notify("Posts Fetched successfully");
         })
@@ -91,6 +95,9 @@ class Post extends Component {
     }
 
     addPost = ()=>{
+         this.setState({
+             loader: true
+         });
         let post = {
             title: this.state.title,
             author: this.state.author
@@ -111,7 +118,8 @@ class Post extends Component {
                 let posts = this.state.posts.slice();
                 posts.push(res);
                 this.setState({
-                    posts: posts
+                    posts: posts,
+                    loader: false
                 });
                 this.clearInputs();
             }
@@ -190,6 +198,7 @@ class Post extends Component {
         return (
             <div>
                 <ToastContainer />
+                <Loader loader={this.state.loader} />
                 <input type="text" value={this.state.title} placeholder="Enter Title" onChange={(event)=>{this.changeTitle(event)}}/> <br/>
                 <input type="text" value={this.state.author} placeholder="Enter Author" onChange={(event)=>{this.changeAuthor(event)}}/> <br/>
                 {this.showButton()}
